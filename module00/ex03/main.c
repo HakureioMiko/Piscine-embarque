@@ -4,6 +4,7 @@
 int main()
 {
     int checker = 0;
+    int interrupt = 0;
 
     DDRB |= (1 << PB0);
     DDRB &=~ (1 << PD2);
@@ -21,7 +22,6 @@ int main()
             {
                 checker = 0;
                 PORTB &=~ (1 << PB0);
-                TCCR1B |= (1 << CS11) | (1 << CS10);
             }
             _delay_ms(250);
         }

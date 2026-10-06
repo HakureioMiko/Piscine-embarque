@@ -72,7 +72,7 @@ all: $(TARGET).hex
 
 $(TARGET).bin: $(TARGET).hex
 	$(OBJCOPY) -I ihex -O binary $(TARGET).hex $(TARGET).bin
-	
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
