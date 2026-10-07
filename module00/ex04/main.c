@@ -14,21 +14,24 @@ int main()
     DDRD &= ~(1 << PD2);
     DDRD &= ~(1 << PD4);
 
+    // PULL UP RESISTANCE
+    PORTD |= (1 << PD2);
+    PORTD |= (1 << PD4);
     while (1)
     {
         // conditions le cas ou l'utilisateur appuis switch 1 pour incrementer
         if (!(PIND & (1 << PD2)))
         {
+            _delay_ms(20);
             if (value < 15)
                 value++;
-            _delay_ms(200);
         }
         // conditions le cas ou l'utilisateur appuis switch 2 pour decrementer
         if (!(PIND & (1 << PD4)))
         {
+            _delay_ms(20);
             if (0 < value)
                 value--;
-            _delay_ms(200);
         }
         // pour que l'utilisateur ne puisse pas maintenir le bouton
         while (!(PIND & (1 << PD2)))

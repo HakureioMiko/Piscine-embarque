@@ -9,7 +9,9 @@ BAUD=115200
 PORT=/dev/ttyUSB0
 OBJECT_FILES=main.o
 
-all: $(TARGET).hex
+all: hex flash
+
+hex: $(TARGET).hex
 
 $(TARGET).bin: $(TARGET).hex
 	$(OBJCOPY) -I ihex -O binary $(TARGET).hex $(TARGET).bin
@@ -27,4 +29,4 @@ flash: $(TARGET).hex
 	avrdude -F -V -p $(MCU) -c arduino  -P $(PORT) -b $(BAUD) -U flash:w:$(TARGET).hex:i
 
 clean:
-	rm -f *.o *.hex *.obj
+	rm -f *.o *.hex *.elf *.obj 

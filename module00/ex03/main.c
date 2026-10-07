@@ -6,7 +6,10 @@ int main()
     int checker = 0;
 
     DDRB |= (1 << PB0); // PB0 (ICP1) en sortie → LED
-    DDRB &=~ (1 << PD2); // PD2 (INTO) en entrée → Bouton
+    DDRD &=~ (1 << PD2); // PD2 (INTO) en entrée → Bouton
+
+    // pull up resistance
+    PORTD |= (1 << PD2);
 
     while(1)
     {
