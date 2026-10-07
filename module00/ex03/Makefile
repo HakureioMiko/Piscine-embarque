@@ -26,4 +26,4 @@ flash: $(TARGET).hex
 	avrdude -F -V -p $(MCU) -c arduino  -P $(PORT) -b $(BAUD) -U flash:w:$(TARGET).hex:i
 
 clean:
-	rm -f *.o *.hex *.obj *.bin
+	rm -f *.o *.hex *.obj
