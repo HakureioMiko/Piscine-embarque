@@ -1,8 +1,9 @@
 TARGET=main
 MCU = atmega328p
 CC=avr-gcc
+F_CPU = 16000000UL
 OBJCOPY=avr-objcopy
-CFLAGS=-Os -DF_CPU=16000000UL -mmcu=$(MCU)
+CFLAGS=-Os -DF_CPU=$(F_CPU) -mmcu=$(MCU)
 LDFLAGS=-Wl,-gc-sections -Wl,-relax
 BAUD=115200
 PORT=/dev/ttyUSB0

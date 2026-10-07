@@ -11,8 +11,8 @@ int main()
     DDRB |= (1 << PB2);
     DDRB |= (1 << PB4);
     // Ouverture en entree pour les switch
-    DDRB &=~ (1 << PD2);
-    DDRB &=~ (1 << PD4);
+    DDRD &= ~(1 << PD2);
+    DDRD &= ~(1 << PD4);
 
     while (1)
     {
