@@ -22,7 +22,7 @@ int main()
         // conditions le cas ou l'utilisateur appuis switch 1 pour incrementer
         if (!(PIND & (1 << PD2)))
         {
-            _delay_ms(20);
+                _delay_ms(20);
             if (value < 15)
                 value++;
         }
