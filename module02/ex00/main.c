@@ -12,7 +12,7 @@ void uart_init(void)
     
     // Configurer le débit à environ 115200 bauds
     UBRR0 = F_CPU / (8 * UART_BAUD) - 1;
-    // UCSR0A = F_CPU / UART_BAUD / 16;
+    // UCSR0A = F_CPU / UART_BAUD / 16 (autre facon de calculer);
     // Page 166 19.3.1 (pour les calcul)
 
     // Configurer le format : 8 bits, aucune parité, 1 bit de stop

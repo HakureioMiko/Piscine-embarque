@@ -36,7 +36,7 @@ void timer_ctc()
     TIMSK1 = (1 << OCIE1A);
     // page 20 16.11.8
 
-    const uint16_t time = (F_CPU / (1024 * 2) - 1);
+    const uint16_t time = (F_CPU / (1024 * 0.5) - 1);
 
     OCR1A = time;
 }
@@ -48,7 +48,7 @@ void uart_init(void)
     
     // Configurer le débit à environ 115200 bauds
     UBRR0 = F_CPU / (8 * UART_BAUD) - 1;
-    // UCSR0A = F_CPU / UART_BAUD / 16;
+    // UCSR0A = F_CPU / UART_BAUD / 16 (autre facon de calculer);
     // Page 166 19.3.1
 
     // Configurer le format : 8 bits, aucune parité, 1 bit de stop
