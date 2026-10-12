@@ -8,11 +8,11 @@
 void uart_init(void)
 {
     // Activer le mode double vitesse
-    // UCSR0A |= (1 << U2X0);
-    //UBRR0 = F_CPU / (2 * BAUD) - 1;
-
+    UCSR0A |= (1 << U2X0);
+    
     // Configurer le débit à environ 115200 bauds
-    UCSR0A = F_CPU / UART_BAUD / 16;
+    UBRR0 = F_CPU / (8 * UART_BAUD) - 1;
+    // UCSR0A = F_CPU / UART_BAUD / 16;
     // Page 166 19.3.1
 
     // Configurer le format : 8 bits, aucune parité, 1 bit de stop
