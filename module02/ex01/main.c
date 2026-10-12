@@ -61,7 +61,7 @@ void uart_init(void)
 }
 
 SIGNAL (TIMER1_COMPA_vect) { uart_printstr("Hello World!");}
-
+// page 11.1 | interrupt 
 int main()
 {
 
