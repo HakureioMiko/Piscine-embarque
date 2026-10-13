@@ -21,7 +21,8 @@ void uart_init(void)
 
     // Activer l'émetteur USART0
     UCSR0B = (1 << TXEN0);  
-    // 19.5
+    // PAGE 201 20.11.3
+    // enable TRANSMITTER
 }
 
 void uart_tx(char c)
