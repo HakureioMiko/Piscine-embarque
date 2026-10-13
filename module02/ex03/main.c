@@ -57,8 +57,11 @@ SIGNAL (USART_RX_vect)
 int main()
 {
     uart_init();
+    // initialisation de l'uart
 
     SREG = (1 << SREG_I);
+    // active les interruption
+    // page 20 7.3.1
 
     while (1);
     {

@@ -49,6 +49,7 @@ int main()
 {
     char a;
     uart_init();
+    // initialisation de l'uart
 
     while(1)
     {

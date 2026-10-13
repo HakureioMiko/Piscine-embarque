@@ -67,14 +67,15 @@ void uart_init(void)
 
 SIGNAL (TIMER1_COMPA_vect) 
 { 
+    // activation d'event d'interruption
     uart_printstr("Hello World!");
 }
 // page 66 12-1 interruptor vector 
 
 int main()
 {
+    uart_init();
     timer_ctc();
     // Timer sans boucle while avec interruption qui repete a chaque top de OCR1A toute les 2s
-    uart_init();
     while(1);
 }
