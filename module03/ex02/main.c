@@ -2,42 +2,37 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-void init_rgb()
+void init_rgb(void)
 {
-    // Rouge : PD5 = OC0B
-    // Vert  : PD3 = OC2B
-    // Bleu  : PB3 = OC2A
-    DDRD |= (1 << DDD5) | (1 << DDD3);
-    DDRB |= (1 << DDB3);
+    DDRD |= (1 << PD3) | (1 << PD5) | (1 << PD6);
 
-    TCCR0A = (1 << COM0B1) | (1 << WGM01) | (1 << WGM00);
-    // page 14.7.3
-    
-    // Prescaler Timer0 = 64
+    // timer for OC0A OC0B
+    TCCR0A = (1 << COM0A1) |
+             (1 << COM0B1) |
+             (1 << WGM01)  |
+             (1 << WGM00);
+
+    // prescaler 64
     TCCR0B = (1 << CS01) | (1 << CS00);
 
-    // Timer2 : Fast PWM 8 bits, sorties OC2A et OC2B
-    TCCR2A = (1 << COM2A1) |
-             (1 << COM2B1) |
-             (1 << WGM21) |
+    // timer for 0C2B
+    TCCR2A = (1 << COM2B1) |
+             (1 << WGM21)  |
              (1 << WGM20);
 
-    // Prescaler Timer2 = 64
+    // prescaler 64
     TCCR2B = (1 << CS22);
 
-    // LED eteinte au depart
-    OCR0B = 0;
-    
-    OCR2B = 0;
-    OCR2A = 0;
-    // page 17.11.5
+    OCR0A = 0;  
+    OCR0B = 0;  
+    OCR2B = 0; 
 }
 
 void set_rgb(uint8_t r, uint8_t g, uint8_t b)
 {
     OCR0B = r;
-    OCR2B = g;
-    OCR2A = b;
+    OCR0A = g;
+    OCR2B = b;
 }
 
 void wheel(uint8_t pos)
@@ -62,7 +57,7 @@ void wheel(uint8_t pos)
 int main()
 {
     init_rgb();
-
+    
     while (1)
     {
         for (uint16_t i = 0; i < 256; i++)
