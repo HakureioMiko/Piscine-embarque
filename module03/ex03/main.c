@@ -59,6 +59,7 @@ char uart_rx(void)
 
     return (UDR0);
 }
+
 void uart_tx(char c)
 {
     while (!(UCSR0A & (1 << UDRE0)))
