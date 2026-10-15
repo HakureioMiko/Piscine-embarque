@@ -105,6 +105,8 @@ int hex_value(char first, char second)
 
 bool check_rgb(int r, int g, int b)
 {
+    if (r == 0 && g == 0 && b == 0)
+        return false;
     if (r < 0)
         return false;
     if (g < 0)
