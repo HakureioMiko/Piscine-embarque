@@ -27,7 +27,6 @@ void uart_init(void)
 
 void init_rgb(void)
 {
-    DDRD |= (1 << PD3) | (1 << PD5) | (1 << PD6);
 
     // timer for OC0A OC0B
     // page 113 15.9.1
@@ -103,6 +102,19 @@ uint8_t hex_value(char first, char second)
     return (16 * left + right);
 }
 
+bool check_rgb(uint8_t r, uint8_t g, uint8_t b)
+{
+    if (r == 0 && g == 0 && b == 0)
+        return false;
+    
+    if (r >= 0)
+        return (true);
+    if (g >= 0)
+        return (true);
+    if (b >= 0)
+        return (true);
+    return false;
+}
 
 int main()
 {
@@ -129,8 +141,14 @@ int main()
                 uint8_t b = hex_value(line[5], line[6]);
 
                 // check if not error
-                if (r >= 0 && g >= 0 && b >= 0)
+                if (check_rgb(r, g, b))
+                {
+                    DDRD |= (1 << PD3) | (1 << PD5) | (1 << PD6);
                     set_rgb(r, g, b);
+                }
+                else
+                    DDRD &= ~((1 << PD3) | (1 << PD5) | (1 << PD6));
+                    
             }
             // reset
             i = 0;
