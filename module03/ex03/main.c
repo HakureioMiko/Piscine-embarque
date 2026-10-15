@@ -1,6 +1,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <stdbool.h>
 
 #define F_CPU 16000000UL
 #define UART_BAUD 115200
@@ -78,7 +79,7 @@ void set_rgb(uint8_t r, uint8_t g, uint8_t b)
     OCR2B = b;
 }
 
-uint8_t convert_hex(char c)
+int convert_hex(char c)
 {
     // hexadecimal convert;
     if (c >= '0' && c <= '9')
@@ -89,10 +90,10 @@ uint8_t convert_hex(char c)
     return -1;
 }
 
-uint8_t hex_value(char first, char second)
+int hex_value(char first, char second)
 {
-    uint8_t left = convert_hex(first);
-    uint8_t right = convert_hex(second);
+    int left = convert_hex(first);
+    int right = convert_hex(second);
 
     if (left < 0 || right < 0)
         return -1;
@@ -102,18 +103,15 @@ uint8_t hex_value(char first, char second)
     return (16 * left + right);
 }
 
-bool check_rgb(uint8_t r, uint8_t g, uint8_t b)
+bool check_rgb(int r, int g, int b)
 {
-    if (r == 0 && g == 0 && b == 0)
+    if (r < 0)
         return false;
-    
-    if (r >= 0)
-        return (true);
-    if (g >= 0)
-        return (true);
-    if (b >= 0)
-        return (true);
-    return false;
+    if (g < 0)
+        return false;
+    if (b < 0)
+        return false;
+    return true;
 }
 
 int main()
@@ -136,15 +134,15 @@ int main()
             if (i == 7 && line[0] == '#')
             {
                 // get rgb value;
-                uint8_t r = hex_value(line[1], line[2]);
-                uint8_t g = hex_value(line[3], line[4]);
-                uint8_t b = hex_value(line[5], line[6]);
+                int r = hex_value(line[1], line[2]);
+                int g = hex_value(line[3], line[4]);
+                int b = hex_value(line[5], line[6]);
 
                 // check if not error
                 if (check_rgb(r, g, b))
                 {
                     DDRD |= (1 << PD3) | (1 << PD5) | (1 << PD6);
-                    set_rgb(r, g, b);
+                    set_rgb((uint8_t)r, (uint8_t)g, (uint8_t)b);
                 }
                 else
                     DDRD &= ~((1 << PD3) | (1 << PD5) | (1 << PD6));
